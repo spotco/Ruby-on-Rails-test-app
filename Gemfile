@@ -8,6 +8,7 @@ group :development do
   gem 'rspec-rails'
   gem 'autotest'
   gem 'rspec'
+  gem 'annotate'
 end
 
 group :test do
