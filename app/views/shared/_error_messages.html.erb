@@ -1,0 +1,18 @@
+<% if @user.errors.any? %>
+	<div id="error_explanation">
+		<h2>
+			<%= @user.errors.count %> erreur(s)
+		</h2>
+		<p>Problemes:</p>
+		<ul>
+		<% @user.errors.full_messages.each do |message| %>
+			<li>
+				<%= message %>
+			</li>
+		<% end %>
+		</ul>
+		
+	</div>
+
+
+<% end %>
