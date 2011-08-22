@@ -1,4 +1,9 @@
-<h1>Hella Sweet App</h1>
-<p>Why am I so round?</p>
+<%if !current_user %>
+	<h1>Ruby on Rails testapp</h1>
+	<p>Sign in or make an account!</p>
+	<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
 
-<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
+<%else%>
+	<p>Content goes here</p>
+
+<%end%>

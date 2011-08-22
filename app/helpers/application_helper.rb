@@ -2,10 +2,11 @@ module ApplicationHelper
 
 	def title
 		base_title = "Mon Test"
+		
 		if @title.nil?
-			base_title
+			return base_title
 		else 
-			"#{base_title} | #{@title}"
+			return "#{base_title} | #{@title}"
 		end
 	end
 	
