@@ -31,7 +31,15 @@ module SessionsHelper
   end
   
   def sign_out
+    @current_user = nil
+    session[:return_to] = nil
     cookies.delete(:remember_token)
+  end
+  
+  def deny_access
+    session[:return_to] = request.fullpath
+    flash[:error] = "Veuillez s'authentifier"
+    redirect_to signin_path
   end
   
 end

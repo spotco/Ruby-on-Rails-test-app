@@ -12,7 +12,12 @@ class SessionsController < ApplicationController
       render :new
     else
       sign_in user
-      redirect_to user_path(@current_user.id)
+      if (session[:return_to])
+        redirect_to session[:return_to]
+        session[:return_to] = nil
+      elsif
+        redirect_to user_path(@current_user.id)
+      end
     end
   end
   
