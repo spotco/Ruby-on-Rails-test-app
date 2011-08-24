@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   
   before_filter :authenticate, :only => [:edit, :update]
   before_filter :correct_user, :only => [:edit, :update]
+  before_filter :admin_user, :only => [:destroy]
   
   def new
 	 @title = "Enregister"
@@ -49,9 +50,20 @@ class UsersController < ApplicationController
     @title = "Tout les mains REPORT"
     @users = User.paginate(:page => params[:page],:per_page => 10)
   end
+  
+  def destroy
+    target = User.find(params[:id])
+    target.destroy unless target.admin?
+    flash[:success] = "user deleted"
+    redirect_to users_path
+  end
 
 
 private
+  
+  def admin_user
+    redirect_to(root_path) unless current_user.admin?
+  end
   
   def authenticate
     loggedin_user = current_user

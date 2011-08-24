@@ -5,10 +5,11 @@ namespace :db do
   #rake db:populate
   task :populate => :environment do
     Rake::Task["db:reset"].invoke #clears db
-    User.create!(:name => "spotco",
+    admin = User.create!(:name => "spotco",
                  :email => "mootothemax@gmail.com",
                  :password => "dododo",
                  :password_confirmation => "dododo")
+    admin.toggle!(:admin)
                  
     99.times do |n|
       name = Faker::Name.name

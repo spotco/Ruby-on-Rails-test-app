@@ -7,6 +7,10 @@
 			<li style="list-style-type:none; margin-bottom: 9px;">
 			<%= gravatar_for(u) %>
 			<%= link_to(u.name,user_path(u.id)) %>
+			<% if current_user && current_user.admin? %>
+				|
+				<%= link_to "delete", u, :method => :delete, :confirm => "You sure breh?", :title => "Delete??" %>
+			<% end%>
 			</li>
 		<% end %>
 	
