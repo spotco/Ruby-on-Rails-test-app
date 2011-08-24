@@ -45,6 +45,14 @@ class UsersController < ApplicationController
     end
   end
   
+  def index
+    @title = "Tout les mains REPORT"
+    @users = User.paginate(:page => params[:page],:per_page => 10)
+  end
+
+
+private
+  
   def authenticate
     loggedin_user = current_user
     if (!signed_in?)

@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
 	email_regex = /^[\w]+[@]{1}[\w]+[.]{1}[\w]+$/
 	
 	validates  :name,  :presence => true,
-					           :length => { :maximum => 50 } 
+					           :length => { :maximum => 20 } 
 					   
 	validates  :email, :presence => true,
 					           :format => {:with => email_regex },

@@ -1,0 +1,15 @@
+<h1>All users</h1>
+
+<%= will_paginate(@users) %>
+
+	<ul class="users">
+		<% for u in @users do %>
+			<li style="list-style-type:none; margin-bottom: 9px;">
+			<%= gravatar_for(u) %>
+			<%= link_to(u.name,user_path(u.id)) %>
+			</li>
+		<% end %>
+	
+	</ul>
+	
+<%= will_paginate(@users) %>
