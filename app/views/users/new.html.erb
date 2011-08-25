@@ -1,7 +1,7 @@
 <h1>Signup for new users!</h1>
 
-<%= form_for(@user) do |f| %>
-	@f = f
+<%= form_for(@user) do |f| @f = f %>
+	
 	<%= render 'fields' %>
 	<div class="actions">
 		<%= @f.submit "signup" %>
