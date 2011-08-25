@@ -5,13 +5,15 @@ gem 'spork'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 gem 'gravatar_image_tag'
 gem 'will_paginate'
+gem 'faker', '0.3.1', :require => false
 
 group :development do
   gem 'rspec-rails'
   gem 'autotest'
   gem 'rspec'
   gem 'annotate'
-  gem 'faker', '0.3.1'
+  gem 'faker', '0.3.1', :require => false
+  gem 'heroku'
 end
 
 group :test do
