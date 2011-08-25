@@ -4,6 +4,27 @@
 	<%= link_to "Sign up now!", signup_path, :class => "signup_button round" %>
 
 <%else%>
-	<p>Content goes here</p>
+	<table class="front" summary="s">
+		<tr>
+			<td class="main">
+				<h1 class="micropost">What's up?</h1>
+				
+				<%= form_for(@micropost) do |f| %>
+					<div class="field">
+						<%= f.text_area(:content, :size => "20x5" ) %>
+					</div>
+					<div class="submit">
+						<%= f.submit "Submit" %>
+					</div>
+				<% end %>
+				
+			</td>
+			
+			<td class="sidebar round">
+				<%= render 'shared/user_info' %>
+			</td>
+			
+		</tr>
+	</table>
 
 <%end%>

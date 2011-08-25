@@ -31,9 +31,7 @@
 		</td>
 		
 		<td class="sidebar round">
-			<strong>Name:</strong> <%= @user.name %><br />
-			<strong>URL:</strong> <%= link_to "#{@user.name}'s page", user_path(@user.id) %><br />
-			<strong>Microposts:</strong><%= @user.microposts.length %>
+			<%= render "shared/user_info" %>
 		</td>
 	</tr>
 
