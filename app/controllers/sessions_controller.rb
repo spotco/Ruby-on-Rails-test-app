@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
       if (session[:return_to])
         redirect_to session[:return_to]
         session[:return_to] = nil
-      elsif
+      else
         redirect_to user_path(@current_user.id)
       end
     end

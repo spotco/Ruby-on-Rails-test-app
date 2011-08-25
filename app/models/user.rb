@@ -25,6 +25,12 @@ class User < ActiveRecord::Base
 	#runs code to generate and store salt, see users_controller     
   before_save :encrypt_password
   
+  def feed
+    #self.microposts
+    Micropost
+    #Micropost.where("user_id = ?", self.id)
+  end
+  
   def self.authenticate?(email,pass)
     user = User.find_by_email(email)
     
@@ -42,23 +48,23 @@ class User < ActiveRecord::Base
      self.encrypted_password == encrypt(submitted_password) 
   end
   
-    def encrypt_password
-      self.salt = make_salt if new_record?
-      self.encrypted_password = encrypt(self.password)
-    end
-    
-    def encrypt(string)
-      secure_hash("#{salt}--#{string}")
-    end
-    
-    def secure_hash(str)
-      Digest::SHA2.hexdigest(str)
-    end
-    
-    def make_salt
-      secure_hash("#{Time.now.utc}--#{password}")
-    end
-	         
+  def encrypt_password
+    self.salt = make_salt if new_record?
+    self.encrypted_password = encrypt(self.password)
+  end
+  
+  def encrypt(string)
+    secure_hash("#{salt}--#{string}")
+  end
+  
+  def secure_hash(str)
+    Digest::SHA2.hexdigest(str)
+  end
+  
+  def make_salt
+    secure_hash("#{Time.now.utc}--#{password}")
+  end
+         
 end
 
 #user.errors.full_messages

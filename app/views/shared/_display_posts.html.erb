@@ -1,0 +1,26 @@
+<% @microposts = paramz.paginate(:page => params[:page],:per_page => 8) %>
+<%= will_paginate(@microposts) %>
+	<table class="microposts" summary="User's microposts">
+		
+		<% for micropost in @microposts do %>
+		<tr>
+			<td class="micropost">
+				<strong style="font-size:130%;font-style:italic;"><span class="content">"<%= micropost.content %>"</span></strong>
+				<br />
+				<em><span class="timestamp">
+					Posted on <%= time_ago_in_words(micropost.created_at)%> ago by 
+					<%= link_to "#{micropost.user.name}", user_path(micropost.user.id) %>
+				</span></em>
+				
+			<% if current_user == micropost.user %>
+				| <%= link_to "delete", micropost, :method => :delete, :confirm => "You sure breh?", :title => "Delete??" %>
+			<% end%>
+				
+			</td>
+		</tr>
+		<% end %>
+		
+		
+		
+	</table>
+<%= will_paginate(@microposts) %>

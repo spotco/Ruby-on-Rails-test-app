@@ -5,6 +5,7 @@ class PagesController < ApplicationController
     @title = "Accueil"
     @micropost = Micropost.new if signed_in?
     @user = current_user
+    session[:return_to] = request.fullpath
   end
 
   def contact

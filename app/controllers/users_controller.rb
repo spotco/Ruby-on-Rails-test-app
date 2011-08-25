@@ -13,6 +13,7 @@ class UsersController < ApplicationController
   def show
 	 @user = User.find(params[:id])
 	 @title = @user.name
+	 session[:return_to] = request.fullpath
   end
   
   def create
