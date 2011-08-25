@@ -1,6 +1,7 @@
 <h1>Edit user information</h1>
 
-<%= form_for(@user , :url => { :action => :update, :controller => :users }) do |@f| %>
+<%= form_for(@user , :url => { :action => :update, :controller => :users }) do |f| %>
+	<% @f = f %>
 	<%= render 'fields' %>
 	
 	<div class="actions">
