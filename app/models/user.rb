@@ -3,6 +3,9 @@ class User < ActiveRecord::Base
 	attr_accessor :password, :admin
 	attr_accessible :name, :email, :password, :password_confirmation, :salt
 	
+	#delete post when user deleted
+	has_many :microposts, :dependent => :destroy
+	
 	email_regex = /^[\w]+[@]{1}[\w]+[.]{1}[\w]+$/
 	
 	validates  :name,  :presence => true,
@@ -62,6 +65,7 @@ end
 
 
 
+
 # == Schema Information
 #
 # Table name: users
@@ -73,5 +77,6 @@ end
 #  updated_at         :datetime
 #  encrypted_password :string(255)
 #  salt               :string(255)
+#  admin              :boolean         default(FALSE)
 #
 

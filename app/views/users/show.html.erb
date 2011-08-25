@@ -5,10 +5,35 @@
 				<%= gravatar_for(@user) %>
 				<%= @user.name %>
 			</h1>
+			
+			<% if @user.microposts.any? %>
+				<h3 style="text-align:center;"><%= @user.name %>'s posts:</h3>
+				<% @microposts = @user.microposts.paginate(:page => params[:page],:per_page => 8) %>
+				<%= will_paginate(@microposts) %>
+				<table class="microposts" summary="User's microposts">
+					
+					<% for micropost in @microposts do %>
+					<tr>
+						<td class="micropost">
+							<strong style="font-size:130%;font-style:italic;"><span class="content">"<%= micropost.content %>"</span></strong>
+							<br />
+							<em><span class="timestamp">Posted on <%= time_ago_in_words(micropost.created_at)%> ago.</span></em>
+						</td>
+					</tr>
+					<% end %>
+					
+					
+					
+				</table>
+				<%= will_paginate(@microposts) %>
+			<% end %>
+			
 		</td>
+		
 		<td class="sidebar round">
 			<strong>Name:</strong> <%= @user.name %><br />
-			<strong>URL:</strong> <%= link_to "Your page", user_path(@user.id) %>
+			<strong>URL:</strong> <%= link_to "#{@user.name}'s page", user_path(@user.id) %><br />
+			<strong>Microposts:</strong><%= @user.microposts.length %>
 		</td>
 	</tr>
 
