@@ -43,7 +43,7 @@ class UsersController < ApplicationController
       render :edit
     else 
       redirect_to @user
-      flash[:success] = "Ça marche"
+      flash[:success] = "ca marche"
     end
   end
   
