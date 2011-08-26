@@ -30,7 +30,6 @@ class UsersController < ApplicationController
     render :followers
   end
   
-  def 
   
   def create
     #raise params[:user].inspect
