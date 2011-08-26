@@ -61,14 +61,14 @@ class User < ActiveRecord::Base
     JOIN relationships r ON r.followed_id = u.id
     WHERE r.follower_id = '+id.to_s+'
     ORDER BY mp.created_at DESC
-    LIMIT 0,20']
+    ']
     
     b = Micropost.find_by_sql ['
     SELECT mp.id, mp.content, mp.user_id, mp.created_at
     FROM microposts mp
     WHERE mp.user_id = '+id.to_s+'
     ORDER BY mp.created_at DESC
-    LIMIT 0,20']
+    ']
     
     return ((a | b).sort_by &:created_at).reverse
   end
