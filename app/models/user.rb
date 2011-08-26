@@ -6,6 +6,19 @@ class User < ActiveRecord::Base
 	#delete post when user deleted
 	has_many :microposts, :dependent => :destroy
 	
+	#specify foreign key
+	has_many :relationships, :dependent => :destroy,
+	                         :foreign_key => "follower_id"
+	#enables access to list of all this is following, through :relationships and the target is followed                     
+	has_many :following, :through => :relationships, :source => :followed
+	
+	#hack for easy followers finding
+	has_many :reverse_relationships, :dependent => :destroy,
+	                                 :foreign_key => "followed_id",
+	                                 :class_name => "Relationship"
+	has_many :followers, :through => :reverse_relationships, :source => :follower
+	
+	
 	email_regex = /^[\w]+[@]{1}[\w]+[.]{1}[\w]+$/
 	
 	validates  :name,  :presence => true,
@@ -24,11 +37,43 @@ class User < ActiveRecord::Base
 	                      
 	#runs code to generate and store salt, see users_controller     
   before_save :encrypt_password
+
+  #inefficent way to do it
+  def getFollowers
+    temp = []
+    Relationship.find_each(:conditions => ['followed_id = ?', self.id]) do |r|
+      temp.push(User.find_by_id(r.follower_id))
+    end
+    return temp
+  end
+  
   
   def feed
     #self.microposts
     Micropost
     #Micropost.where("user_id = ?", self.id)
+  end
+  
+  def following?(followed)
+    if self.relationships.find_by_followed_id(followed.id)
+      return true
+    else
+      return false
+    end
+  end
+  
+  def follow!(followed)
+    self.relationships.create!( :followed_id => followed.id )
+  end
+  
+  def unfollow!(followed)
+    tar = self.relationships.find_by_followed_id(followed.id)
+    if tar
+      tar.destroy
+      return true
+    else
+      return false
+    end
   end
   
   def self.authenticate?(email,pass)

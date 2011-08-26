@@ -4,6 +4,7 @@
 			<h1>
 				<%= gravatar_for(@user) %>
 				<%= @user.name %>
+				<%= render "shared/follow_form" %>
 			</h1>
 			
 			<% if @user.microposts.any? %>
@@ -15,6 +16,8 @@
 		
 		<td class="sidebar round">
 			<%= render "shared/user_info" %>
+			<br />
+			<%= render "shared/user_followstatus"%>
 		</td>
 	</tr>
 

@@ -1,0 +1,2 @@
+<div>Following: <%= link_to(@user.following.length.to_s, following_user_path(@user)) %></div>
+<div>Followers: <%= link_to(@user.getFollowers.length.to_s, getfollowers_user_path(@user)) %></div>

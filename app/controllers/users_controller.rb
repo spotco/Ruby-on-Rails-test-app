@@ -16,6 +16,22 @@ class UsersController < ApplicationController
 	 session[:return_to] = request.fullpath
   end
   
+  def following
+    @user = User.find(params[:id])
+    @tar = @user.following
+    @title = @user.name + " is stalking..."
+  end
+  
+  require 'will_paginate/array'
+  def getfollowers
+    @user = User.find(params[:id])
+    @title = @user.name + "'s stalkers"
+    @tar = @user.getFollowers
+    render :followers
+  end
+  
+  def 
+  
   def create
     #raise params[:user].inspect
     @user = User.new(params[:user])
