@@ -1,6 +1,5 @@
 <div class="info">
 			<h3>
-				<%= gravatar_for(@user) %>
 				<span style="text-align:inherit;"><%= @user.name %></span>
 			</h3>
 			<strong>URL:</strong> <%= link_to "#{@user.name}'s page", user_path(@user.id) %><br />

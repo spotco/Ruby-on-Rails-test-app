@@ -2,16 +2,19 @@
 <% @users = @tar.paginate(:page => params[:page],:per_page => 5) %>
 
 	<%= will_paginate(@users) %>
-
+	<table>
 	<ul class="users">
 		<% for u in @users do %>
+			<tr><td>
 			<li style="list-style-type:none; margin-bottom: 9px;">
 			<%= gravatar_for(u) %>
 			<%= link_to(u.name,user_path(u.id)) %>
 			</li>
+			</td></tr>
 		<% end %>
 	
 	</ul>
+	</table>
 	
 	<% will_paginate(@users) %>
 
