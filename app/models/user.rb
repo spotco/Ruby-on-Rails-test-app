@@ -47,11 +47,30 @@ class User < ActiveRecord::Base
     return temp
   end
   
-  
   def feed
-    #self.microposts
-    Micropost
-    #Micropost.where("user_id = ?", self.id)
+    #not as cool solution
+    #followed_ids = User.first.following.map(&:id).join(", ") #sql search like 1,40,41,42,43 thats why
+    #Micropost.where("user_id IN (#{followed_ids}) OR user_id = ?", User.first.id)
+    
+    #followed_ids = %(SELECT followed_id FROM relationships WHERE follower_id = :user_id)
+    #Micropost.where("user_id IN (#{followed_ids}) OR user_id = :user_id", :user_id => user)
+    a = Micropost.find_by_sql ['
+    SELECT mp.id, mp.content, mp.user_id, mp.created_at
+    FROM microposts mp
+    JOIN users u ON u.id = mp.user_id ''
+    JOIN relationships r ON r.followed_id = u.id
+    WHERE r.follower_id = '+id.to_s+'
+    ORDER BY mp.created_at DESC
+    LIMIT 0,20']
+    
+    b = Micropost.find_by_sql ['
+    SELECT mp.id, mp.content, mp.user_id, mp.created_at
+    FROM microposts mp
+    WHERE mp.user_id = '+id.to_s+'
+    ORDER BY mp.created_at DESC
+    LIMIT 0,20']
+    
+    return ((a | b).sort_by &:created_at).reverse
   end
   
   def following?(followed)
